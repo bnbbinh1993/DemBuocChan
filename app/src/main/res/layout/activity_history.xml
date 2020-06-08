@@ -16,18 +16,32 @@
             android:layout_width="80dp"
             android:layout_height="60dp" />
        <LinearLayout
+           android:padding="5dp"
            android:layout_marginStart="20dp"
            android:layout_gravity="center"
            android:orientation="vertical"
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content">
-           <TextView
-               android:textStyle="bold"
-               android:textColor="@color/black"
-               android:textSize="14sp"
-               android:text="Tôi cảm thấy thật vui"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:textStyle="bold"
+                   android:textColor="@color/black"
+                   android:textSize="20sp"
+                   android:text="10235"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:layout_marginStart="5dp"
+                   android:textStyle="bold"
+                   android:textColor="@color/black"
+                   android:textSize="12sp"
+                   android:text="bước"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+           </LinearLayout>
            <TextView
                android:textStyle="bold"
                android:textColor="@color/black"
@@ -36,31 +50,35 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
           <LinearLayout
+              android:weightSum="3"
               android:orientation="horizontal"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content">
               <TextView
+                  android:layout_weight="1"
                   android:textStyle="bold"
                   android:textColor="@color/black"
                   android:textSize="10sp"
                   android:text="20km"
-                  android:layout_width="wrap_content"
+                  android:layout_width="0dp"
                   android:layout_height="wrap_content" />
               <TextView
+                  android:layout_weight="1"
                   android:layout_marginStart="20dp"
                   android:textStyle="bold"
                   android:textColor="@color/black"
                   android:textSize="10sp"
                   android:text="1h22p23s"
-                  android:layout_width="wrap_content"
+                  android:layout_width="0dp"
                   android:layout_height="wrap_content" />
               <TextView
+                  android:layout_weight="1"
                   android:layout_marginStart="20dp"
                   android:textStyle="bold"
                   android:textColor="@color/black"
                   android:textSize="10sp"
                   android:text="323 kcal"
-                  android:layout_width="wrap_content"
+                  android:layout_width="0dp"
                   android:layout_height="wrap_content" />
           </LinearLayout>
 
@@ -78,18 +96,32 @@
             android:layout_width="80dp"
             android:layout_height="60dp" />
         <LinearLayout
+            android:padding="5dp"
             android:layout_marginStart="20dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="10235"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="bước"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -98,31 +130,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
+                android:weightSum="3"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="20km"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="1h22p23s"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="323 kcal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -140,18 +176,32 @@
             android:layout_width="80dp"
             android:layout_height="60dp" />
         <LinearLayout
+            android:padding="5dp"
             android:layout_marginStart="20dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="10235"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="bước"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -160,31 +210,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
+                android:weightSum="3"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="20km"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="1h22p23s"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="323 kcal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -202,18 +256,32 @@
             android:layout_width="80dp"
             android:layout_height="60dp" />
         <LinearLayout
+            android:padding="5dp"
             android:layout_marginStart="20dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="10235"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="bước"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -222,31 +290,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
+                android:weightSum="3"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="20km"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="1h22p23s"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="323 kcal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -264,18 +336,32 @@
             android:layout_width="80dp"
             android:layout_height="60dp" />
         <LinearLayout
+            android:padding="5dp"
             android:layout_marginStart="20dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="10235"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="bước"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -284,31 +370,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
+                android:weightSum="3"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="20km"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="1h22p23s"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="323 kcal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -326,18 +416,32 @@
             android:layout_width="80dp"
             android:layout_height="60dp" />
         <LinearLayout
+            android:padding="5dp"
             android:layout_marginStart="20dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="10235"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="bước"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -346,159 +450,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
+                android:weightSum="3"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="20km"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="1h22p23s"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:text="323 kcal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:background="#C7C7C7"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/anhgg"
-            android:layout_width="80dp"
-            android:layout_height="60dp" />
-        <LinearLayout
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                android:text="20/12/20200"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:text="20km"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginStart="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:text="1h22p23s"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginStart="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:text="323 kcal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:background="#C7C7C7"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/anhgg"
-            android:layout_width="80dp"
-            android:layout_height="60dp" />
-        <LinearLayout
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Tôi cảm thấy thật vui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                android:text="20/12/20200"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:text="20km"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginStart="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:text="1h22p23s"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginStart="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:text="323 kcal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>
