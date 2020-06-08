@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="#EEE2E2E2"
+<LinearLayout android:background="#EEE2E2E2"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ContentsFragment">
+    tools:context=".fragment.ContentsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginEnd="80dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Luyện tập"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <FrameLayout
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:layout_width="80dp"
+                android:layout_height="3dp">
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#00A501"
+                android:text="Lịch sử"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <FrameLayout
+                android:layout_gravity="center"
+                android:background="#00A501"
+                android:layout_width="80dp"
+                android:layout_height="3dp">
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <include layout="@layout/activity_history"/>
+
+    <LinearLayout
+        android:visibility="gone"
         android:orientation="vertical"
         android:layout_margin="10dp"
         android:background="@drawable/bg1"
@@ -81,18 +147,10 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/imageB"
-                android:background="#f123"
+                android:src="@mipmap/anhgg"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 />
-            <ImageButton
-                android:layout_margin="5dp"
-                android:layout_alignParentEnd="true"
-                android:padding="10dp"
-                android:background="@drawable/bg3"
-                android:src="@drawable/ic_location_on_blue_24dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp" />
             <Button
                 android:id="@+id/btnStart"
                 android:layout_margin="5dp"

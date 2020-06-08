@@ -2,9 +2,9 @@ package com.bnb.binh.dembuocchan;
 
 import android.os.Bundle;
 
-import com.bnb.binh.dembuocchan.Fragment.ContentsFragment;
-import com.bnb.binh.dembuocchan.Fragment.HomeFragment;
-import com.bnb.binh.dembuocchan.Fragment.ProfileFragment;
+import com.bnb.binh.dembuocchan.fragment.ContentsFragment;
+import com.bnb.binh.dembuocchan.fragment.HomeFragment;
+import com.bnb.binh.dembuocchan.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

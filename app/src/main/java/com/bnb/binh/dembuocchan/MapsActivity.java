@@ -198,19 +198,55 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
+    private void coutKcal(double a, long b) {
+        /*
+            Đi bộ tốc độ vừa phải trong 1 tiếng (5 km/ giờ): 200 calo.
+            Đi bộ với tốc độ nhanh (6,5 km – 8 km/ giờ) trong 1 giờ: 370 calo.
+            Đi bộ lên dốc cao (5,5 km/ giờ) trong 1 giờ: 355 calo.
+            Đi lên cầu thang (5 km/ giờ) trong 1 giờ: 275 calo.
+            Đi bộ xuống dốc (4 km/ giờ) trong 1 giờ tiêu thụ ngay: 165 calo.
+         */
+
+        double calculation = a * 1000;    //tính bằng m
+        long time = b/1000;          // tính bằng s
+        double v = calculation / time; //m/s
+        if (v <= 5 * 0.27777778) {
+            double kcal = ((double) 200 / 5000) * calculation;
+            Log.d("RP", "coutKcal: " + kcal);
+            DecimalFormat format = new DecimalFormat("0.##");
+
+            tvKcal.setText(String.valueOf(format.format(kcal)));
+        } else if (v > 5 * 0.27777778 && v < 8 * 0.27777778) {
+            double kcal = ((double) 370 / 5000) * calculation;
+            DecimalFormat format = new DecimalFormat("0.##");
+            Log.d("RP", "coutKcal: " + kcal);
+            tvKcal.setText(String.valueOf(format.format(kcal)));
+        }else {
+            double kcal = ((double) 500 / 5000) * calculation;
+            DecimalFormat format = new DecimalFormat("0.##");
+            Log.d("RP", "coutKcal: " + kcal);
+            tvKcal.setText(String.valueOf(format.format(kcal)));
+        }
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (latLngList.size()>=2){
-            LatLng lng = latLngList.get(latLngList.size()-1);
-            for (int i = 0;i<latLngList.size()-1;i++){
-                double KQ = CalculationByDistance(latLngList.get(i),latLngList.get(i+1));
+        if (latLngList.size() >= 2) {
+            LatLng lng = latLngList.get(latLngList.size() - 1);
+            for (int i = 0; i < latLngList.size() - 1; i++) {
+                double KQ = CalculationByDistance(latLngList.get(i), latLngList.get(i + 1));
                 coutCalculate = coutCalculate + KQ;
+                coutKcal(coutCalculate,timeCout);
             }
-            tvBuoc.setText(String.valueOf((int) coutCalculate*1000*2));
+
+            Toast.makeText(this, "" + coutCalculate, Toast.LENGTH_SHORT).show();
+            tvBuoc.setText(String.valueOf((int) (coutCalculate * 1000 * 2)));
+            Log.d("SIZE", "onMapReady: " + String.valueOf((int) (coutCalculate * 1000 * 2)));
             latLngList.clear();
             latLngList.add(lng);
+
         }
 
         if (latLng != null) {
@@ -345,6 +381,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mGoogleApiClient.disconnect();
         }
     }
+
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
         int Radius = 6371;// radius of earth in Km
         double lat1 = StartP.latitude;

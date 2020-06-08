@@ -1,4 +1,4 @@
-package com.bnb.binh.dembuocchan.Fragment;
+package com.bnb.binh.dembuocchan.fragment;
 
 
 import android.content.Intent;
