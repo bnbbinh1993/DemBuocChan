@@ -4,11 +4,13 @@ import android.os.Bundle;
 
 import com.bnb.binh.dembuocchan.fragment.ContentsFragment;
 import com.bnb.binh.dembuocchan.fragment.HomeFragment;
+import com.bnb.binh.dembuocchan.fragment.LichCVFragment;
 import com.bnb.binh.dembuocchan.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
@@ -17,8 +19,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private BottomNavigationView view;
-
-
+    private Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,34 +27,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         view = findViewById(R.id.nav_view);
         view.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        setHome();
+        getSupportFragmentManager().beginTransaction().add(R.id.container,new HomeFragment()).commit();
     }
-    private void setHome(){
-        HomeFragment homeFragment = new HomeFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.container,homeFragment).commit();
-    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    setHome();
-                    return true;
+                    if (fragment != null){
+                        transaction.remove(fragment);
+                    }
+                    fragment= new HomeFragment();
+                    break;
+                case R.id.lichCV:
+                    if (fragment != null){
+                        transaction.remove(fragment);
+                    }
+                    fragment =new LichCVFragment();
+                    break;
                 case R.id.navigation_dashboard:
-                    ContentsFragment contents = new ContentsFragment();
-                    FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-                    transaction.add(R.id.container,contents).commit();
-                    return true;
+                    if (fragment != null){
+                        transaction.remove(fragment);
+                    }
+                    fragment = new ContentsFragment();
+                    break;
                 case R.id.navigation_notifications:
-                    ProfileFragment profileFragment = new ProfileFragment();
-                    FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-                    transaction1.add(R.id.container,profileFragment).commit();
-                    return true;
+                    if (fragment != null){
+                        transaction.remove(fragment);
+                    }
+                    fragment = new ProfileFragment();
+                    break;
+
             }
-            return false;
+
+            transaction.add(R.id.container,fragment).commit();
+            return true;
         }
     };
 

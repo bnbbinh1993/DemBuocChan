@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,8 +78,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean isChange = false;
     private Polyline polyline = null;
     private List<LatLng> latLngList = new ArrayList<>();
+    private List<LatLng> latLngList2 = new ArrayList<>();
     private List<Marker> markerList = new ArrayList<>();
     private double coutCalculate = 0;
+    private Button btnPause;
+
+
+    //data test
+
 
 
     @Override
@@ -107,6 +114,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         init();
         initEvent();
 
+
+        test();
+
+
+
+
+    }
+
+    private void test() {
 
     }
 
@@ -174,10 +190,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvBuoc = findViewById(R.id.tvBuoc);
         btnLocation = findViewById(R.id.btnLocation);
         btnChange = findViewById(R.id.btnChange);
+        btnPause = findViewById(R.id.btnPause);
     }
 
     private void initEvent() {
-
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timerTask.cancel();
+                alertDiaglog2();
+            }
+        });
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -233,6 +256,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+
+
         if (latLngList.size() >= 2) {
             LatLng lng = latLngList.get(latLngList.size() - 1);
             for (int i = 0; i < latLngList.size() - 1; i++) {
@@ -260,9 +286,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Đây là vị trí hiện tại");
             Marker marker = mMap.addMarker(markerOptions);
             markerList.add(marker);
-
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
 
         }
         if (isChange) {
@@ -275,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 if (latLng != null) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                 }
             }
         });
@@ -291,15 +315,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
+
         if (polyline != null) {
             polyline.remove();
         }
         PolylineOptions polylineOptions = new PolylineOptions()
-                .addAll(latLngList)
+                .addAll(latLngList2)
                 .clickable(true);
         polyline = mMap.addPolyline(polylineOptions);
         polyline.setColor(Color.RED);
-        polyline.setWidth(10);
+        polyline.setWidth(15);
+
 
 
     }
@@ -340,7 +366,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        
     }
 
     @Override
@@ -362,6 +388,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //MarkerOptions markerOptions = new MarkerOptions().position(latLng);
         //Marker marker = mMap.addMarker(markerOptions);
         latLngList.add(latLng);
+        latLngList2.add(latLng);
 
 
     }
@@ -372,6 +399,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
+
     }
 
     @Override
@@ -380,6 +408,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+        alertDiaglog();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        alertDiaglog();
+    }
+
+    @Override
+    public void onBackPressed() {
+        alertDiaglog();
     }
 
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
@@ -405,6 +445,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 + " Meter   " + meterInDec);
 
         return Radius * c;
+    }
+
+
+    private void alertDiaglog()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.item_dialog_test,null);
+        Button btnYes = view.findViewById(R.id.btnYes);
+        Button btnNO = view.findViewById(R.id.btnNo);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                alertDialog.dismiss();
+
+            }
+        });
+        alertDialog.show();
+    }
+    private void alertDiaglog2()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.item_dialog2,null);
+        Button btnYes = view.findViewById(R.id.btnYes2);
+        Button btnNO = view.findViewById(R.id.btnNo2);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+        alertDialog.show();
     }
 
 

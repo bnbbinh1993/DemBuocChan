@@ -11,19 +11,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bnb.binh.dembuocchan.MapsActivity;
 import com.bnb.binh.dembuocchan.R;
+import com.bnb.binh.dembuocchan.adapter.ViewPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ContentsFragment extends Fragment {
+    private ViewPager viewPager;
+    private TabLayout tablayout;
+    private ViewPagerAdapter adapter;
 
-    private ImageButton btnRemove, btnAdd;
-    private Button btnStart;
-    private TextView tvKm;
-    public static int cout = 2000;
 
     public ContentsFragment() {
     }
@@ -35,41 +34,25 @@ public class ContentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contents, container, false);
         init(view);
-        listenClickView();
+
         return view;
     }
 
     private void init(View view) {
-        btnRemove = view.findViewById(R.id.btnRemove);
-        btnAdd = view.findViewById(R.id.btnAdd);
-        tvKm = view.findViewById(R.id.tvKm);
-        btnStart = view.findViewById(R.id.btnStart);
+        viewPager = view.findViewById(R.id.viewpager);
+        tablayout = view.findViewById(R.id.tablayout);
+        setupViewPager(viewPager);
     }
 
-    private void listenClickView() {
-        tvKm.setText(String.valueOf(cout / 1000) + "." + (cout % 1000) / 100);
-        btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cout > 0) {
-                    cout = cout - 100;
-                    tvKm.setText(String.valueOf(cout / 1000) + "." + (cout % 1000) / 100);
-                }
-            }
-        });
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cout = cout + 100;
-                tvKm.setText(String.valueOf(cout / 1000) + "." + (cout % 1000) / 100);
-            }
-        });
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), MapsActivity.class));
-            }
-        });
+    private void setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new TrainingFragment(),"Training");
+        adapter.addFragment(new HistoryFragment(),"History");
+        viewPager.setAdapter(adapter);
+        tablayout.setupWithViewPager(viewPager);
     }
+
+
+
 
 }
