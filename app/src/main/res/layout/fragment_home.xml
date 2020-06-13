@@ -54,7 +54,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text="Bạn cần đi thêm 500 bước nữa để đạt 10k bước"
+                android:text="Bạn cần đi thêm 500 bước nữa để đạt 10N bước"
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -72,14 +72,14 @@
             <com.github.lzyzsd.circleprogress.ArcProgress
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                custom:arc_text_size="30sp"
+                custom:arc_text_size="40sp"
                 custom:arc_suffix_text="0"
                 custom:arc_suffix_text_size="0sp"
                 custom:arc_bottom_text_size="20sp"
                 android:id="@+id/arc_progress"
                 custom:arc_unfinished_color="#E7E7E7"
                 custom:arc_finished_color="#3CFC03"
-                custom:arc_stroke_width="5dp"
+                custom:arc_stroke_width="10dp"
                 android:layout_marginLeft="50dp"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
@@ -146,7 +146,7 @@
                             android:layout_gravity="center"
                             android:text="1:45:12"
                             android:textColor="@color/black"
-                            android:textSize="25sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -156,7 +156,7 @@
                             android:padding="5dp"
                             android:text="Thời lượng"
                             android:textColor="@color/gray"
-                            android:textSize="15sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -174,7 +174,7 @@
                             android:layout_gravity="center"
                             android:text="702.13"
                             android:textColor="@color/black"
-                            android:textSize="25sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -184,7 +184,7 @@
                             android:padding="5dp"
                             android:text="Kcal"
                             android:textColor="@color/gray"
-                            android:textSize="15sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -201,7 +201,7 @@
                             android:layout_gravity="center"
                             android:text="9500"
                             android:textColor="@color/black"
-                            android:textSize="25sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -211,7 +211,7 @@
                             android:padding="5dp"
                             android:text="bước"
                             android:textColor="@color/gray"
-                            android:textSize="15sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>

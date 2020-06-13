@@ -87,7 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //data test
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,15 +109,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             checkLocation();
         }
-
         init();
         initEvent();
-
-
         test();
-
-
-
 
     }
 
@@ -231,7 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
 
         double calculation = a * 1000;    //tính bằng m
-        long time = b/1000;          // tính bằng s
+        long time = b / 1000;          // tính bằng s
         double v = calculation / time; //m/s
         if (v <= 5 * 0.27777778) {
             double kcal = ((double) 200 / 5000) * calculation;
@@ -244,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             DecimalFormat format = new DecimalFormat("0.##");
             Log.d("RP", "coutKcal: " + kcal);
             tvKcal.setText(String.valueOf(format.format(kcal)));
-        }else {
+        } else {
             double kcal = ((double) 500 / 5000) * calculation;
             DecimalFormat format = new DecimalFormat("0.##");
             Log.d("RP", "coutKcal: " + kcal);
@@ -258,13 +251,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-
         if (latLngList.size() >= 2) {
             LatLng lng = latLngList.get(latLngList.size() - 1);
             for (int i = 0; i < latLngList.size() - 1; i++) {
                 double KQ = CalculationByDistance(latLngList.get(i), latLngList.get(i + 1));
                 coutCalculate = coutCalculate + KQ;
-                coutKcal(coutCalculate,timeCout);
+                coutKcal(coutCalculate, timeCout);
             }
 
             Toast.makeText(this, "" + coutCalculate, Toast.LENGTH_SHORT).show();
@@ -327,7 +319,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polyline.setWidth(15);
 
 
-
     }
 
 
@@ -366,7 +357,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnectionSuspended(int i) {
-        
+
     }
 
     @Override
@@ -448,10 +439,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    private void alertDiaglog()
-    {
+    private void alertDiaglog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.item_dialog_test,null);
+        View view = getLayoutInflater().inflate(R.layout.item_dialog_test, null);
         Button btnYes = view.findViewById(R.id.btnYes);
         Button btnNO = view.findViewById(R.id.btnNo);
         builder.setView(view);
@@ -475,10 +465,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         alertDialog.show();
     }
-    private void alertDiaglog2()
-    {
+
+    private void alertDiaglog2() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.item_dialog2,null);
+        View view = getLayoutInflater().inflate(R.layout.item_dialog2, null);
         Button btnYes = view.findViewById(R.id.btnYes2);
         Button btnNO = view.findViewById(R.id.btnNo2);
         builder.setView(view);
