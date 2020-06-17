@@ -7,6 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -16,6 +20,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,8 +66,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private TextView tvTime, tvKcal, tvBuoc;
+    private TextView tvTest;
+    private TextView timeCountTv;
+    private TextView kcalCount;
+    private TextView kmCount;
     private Timer timer;
+    private Timer timer2;
     private TimerTask timerTask;
+    private TimerTask timerTask2;
     private long timeCout = 0;
     private LocationManager mLocationManager;
     private GoogleApiClient mGoogleApiClient;
@@ -75,16 +87,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean isPermission;
     private ImageButton btnLocation;
     private ImageButton btnChange;
+    private ImageButton btnDoi;
+    private ImageButton btnCamera;
+    private RelativeLayout layoutMap;
+    private LinearLayout layoutRun;
     private boolean isChange = false;
     private Polyline polyline = null;
     private List<LatLng> latLngList = new ArrayList<>();
     private List<LatLng> latLngList2 = new ArrayList<>();
     private List<Marker> markerList = new ArrayList<>();
     private double coutCalculate = 0;
-    private Button btnPause;
-
-
-    //data test
+    private ImageButton btnPause;
+    private Integer stepCount = -1;
+    private double Magni = 0;
+    private SensorManager sensorManager;
+    private Sensor sensor;
+    private long timeCheck = 0;
+    private long timeCheck2 = 0;
+    public static int checkLayout = 0;
 
 
     @Override
@@ -109,13 +129,77 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             checkLocation();
         }
+
         init();
         initEvent();
         test();
 
+        if (checkLayout == 0) {
+            layoutRun.setVisibility(View.VISIBLE);
+            layoutMap.setVisibility(View.GONE);
+        } else {
+            layoutRun.setVisibility(View.GONE);
+            layoutMap.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setTimer() {
+        timer2 = new Timer();
+        timerTask2 = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        timeCheck = timeCheck + 1000;
+                    }
+                });
+            }
+        };
+        timer2.scheduleAtFixedRate(timerTask2, 0, 1000);
     }
 
     private void test() {
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        setTimer();
+        SensorEventListener eventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if (event != null) {
+                    float x = event.values[0];
+                    float y = event.values[1];
+                    float z = event.values[2];
+                    double magnitude = Math.sqrt(x * x + y * y + z * z);
+                    double magnitudeDefault = magnitude - Magni;
+                    Magni = magnitude;
+
+                    if (magnitudeDefault > 6) {
+                        if (timeCheck - 500 > timeCheck2) {
+                            timeCheck2 = timeCheck;
+                            stepCount++;
+                            double km = ((double) stepCount * 0.69) / 1000;
+                            DecimalFormat format = new DecimalFormat("0.##");
+                            kmCount.setText(String.valueOf(format.format(km)));
+
+                        }
+                    }
+                    if (stepCount >= 0) {
+                        tvTest.setText(stepCount.toString());
+                        tvBuoc.setText(stepCount.toString());
+                    }
+
+                    coutKcal(stepCount, timeCout);
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+        sensorManager.registerListener(eventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -184,16 +268,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnLocation = findViewById(R.id.btnLocation);
         btnChange = findViewById(R.id.btnChange);
         btnPause = findViewById(R.id.btnPause);
+        tvTest = findViewById(R.id.tvTest);
+        kmCount = findViewById(R.id.kmCount);
+        timeCountTv = findViewById(R.id.timeCout);
+        kcalCount = findViewById(R.id.kcalCount);
+        btnDoi = findViewById(R.id.btnDoi);
+        btnCamera = findViewById(R.id.btnCamera);
+        layoutRun = findViewById(R.id.layoutRun);
+        layoutMap = findViewById(R.id.layoutMap);
     }
 
     private void initEvent() {
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timerTask.cancel();
-                alertDiaglog2();
+                //timerTask.cancel();
+                //alertDiaglog2();
             }
         });
+        btnDoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkLayout == 0) {
+                    btnDoi.setImageResource(R.drawable.ic_clear_black_50dp);
+                    layoutRun.setVisibility(View.GONE);
+                    layoutMap.setVisibility(View.VISIBLE);
+                    checkLayout = 1;
+                } else {
+                    btnDoi.setImageResource(R.drawable.ic_pin_drop_black_50dp);
+                    layoutRun.setVisibility(View.VISIBLE);
+                    layoutMap.setVisibility(View.GONE);
+                    checkLayout = 0;
+                }
+            }
+        });
+
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -206,6 +315,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         cal.setTimeInMillis(Long.parseLong(String.valueOf(timeCout)));
                         String dateTime = DateFormat.format("mm:ss", cal).toString();
                         tvTime.setText(dateTime);
+                        timeCountTv.setText(dateTime);
 
                     }
                 });
@@ -214,37 +324,133 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
-    private void coutKcal(double a, long b) {
-        /*
-            Đi bộ tốc độ vừa phải trong 1 tiếng (5 km/ giờ): 200 calo.
-            Đi bộ với tốc độ nhanh (6,5 km – 8 km/ giờ) trong 1 giờ: 370 calo.
-            Đi bộ lên dốc cao (5,5 km/ giờ) trong 1 giờ: 355 calo.
-            Đi lên cầu thang (5 km/ giờ) trong 1 giờ: 275 calo.
-            Đi bộ xuống dốc (4 km/ giờ) trong 1 giờ tiêu thụ ngay: 165 calo.
-         */
+    private void coutKcal(int a, long b) {
 
-        double calculation = a * 1000;    //tính bằng m
-        long time = b / 1000;          // tính bằng s
-        double v = calculation / time; //m/s
+
+        double calculation = a * 0.69;      //tính bằng m
+        long time = b / 1000;               // tính bằng s
+        double v = calculation / time;      //m/s
         if (v <= 5 * 0.27777778) {
             double kcal = ((double) 200 / 5000) * calculation;
             Log.d("RP", "coutKcal: " + kcal);
             DecimalFormat format = new DecimalFormat("0.##");
-
-            tvKcal.setText(String.valueOf(format.format(kcal)));
+            if (kcal>=0){
+                tvKcal.setText(String.valueOf(format.format(kcal)));
+                kcalCount.setText(String.valueOf(format.format(kcal)));
+            }
         } else if (v > 5 * 0.27777778 && v < 8 * 0.27777778) {
             double kcal = ((double) 370 / 5000) * calculation;
             DecimalFormat format = new DecimalFormat("0.##");
             Log.d("RP", "coutKcal: " + kcal);
-            tvKcal.setText(String.valueOf(format.format(kcal)));
+            if (kcal>=0){
+                tvKcal.setText(String.valueOf(format.format(kcal)));
+                kcalCount.setText(String.valueOf(format.format(kcal)));
+            }
         } else {
             double kcal = ((double) 500 / 5000) * calculation;
             DecimalFormat format = new DecimalFormat("0.##");
             Log.d("RP", "coutKcal: " + kcal);
-            tvKcal.setText(String.valueOf(format.format(kcal)));
+
+            if (kcal>=0){
+                tvKcal.setText(String.valueOf(format.format(kcal)));
+                kcalCount.setText(String.valueOf(format.format(kcal)));
+            }
         }
     }
 
+    private void startLocationUpdate() {
+
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTEST_INTERVAL);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    }
+
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("KQ", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
+    }
+
+    private void alertDiaglog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.item_dialog_test, null);
+        Button btnYes = view.findViewById(R.id.btnYes);
+        Button btnNO = view.findViewById(R.id.btnNo);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                alertDialog.dismiss();
+
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void alertDiaglog2() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.item_dialog2, null);
+        Button btnYes = view.findViewById(R.id.btnYes2);
+        Button btnNO = view.findViewById(R.id.btnNo2);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+        alertDialog.show();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -256,11 +462,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (int i = 0; i < latLngList.size() - 1; i++) {
                 double KQ = CalculationByDistance(latLngList.get(i), latLngList.get(i + 1));
                 coutCalculate = coutCalculate + KQ;
-                coutKcal(coutCalculate, timeCout);
+
             }
 
             Toast.makeText(this, "" + coutCalculate, Toast.LENGTH_SHORT).show();
-            tvBuoc.setText(String.valueOf((int) (coutCalculate * 1000 * 2)));
+
             Log.d("SIZE", "onMapReady: " + String.valueOf((int) (coutCalculate * 1000 * 2)));
             latLngList.clear();
             latLngList.add(lng);
@@ -321,7 +527,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -339,25 +544,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
-    private void startLocationUpdate() {
-
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(UPDATE_INTERVAL)
-                .setFastestInterval(FASTEST_INTERVAL);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-    }
-
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
@@ -411,86 +599,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         alertDiaglog();
-    }
-
-    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
-        int Radius = 6371;// radius of earth in Km
-        double lat1 = StartP.latitude;
-        double lat2 = EndP.latitude;
-        double lon1 = StartP.longitude;
-        double lon2 = EndP.longitude;
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                * Math.sin(dLon / 2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        double valueResult = Radius * c;
-        double km = valueResult / 1;
-        DecimalFormat newFormat = new DecimalFormat("####");
-        int kmInDec = Integer.valueOf(newFormat.format(km));
-        double meter = valueResult % 1000;
-        int meterInDec = Integer.valueOf(newFormat.format(meter));
-        Log.i("KQ", "" + valueResult + "   KM  " + kmInDec
-                + " Meter   " + meterInDec);
-
-        return Radius * c;
-    }
-
-
-    private void alertDiaglog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.item_dialog_test, null);
-        Button btnYes = view.findViewById(R.id.btnYes);
-        Button btnNO = view.findViewById(R.id.btnNo);
-        builder.setView(view);
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-
-        btnNO.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
-        btnYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                alertDialog.dismiss();
-
-            }
-        });
-        alertDialog.show();
-    }
-
-    private void alertDiaglog2() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.item_dialog2, null);
-        Button btnYes = view.findViewById(R.id.btnYes2);
-        Button btnNO = view.findViewById(R.id.btnNo2);
-        builder.setView(view);
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-
-        btnNO.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                alertDialog.dismiss();
-            }
-        });
-
-        btnYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-
-            }
-        });
-        alertDialog.show();
     }
 
 

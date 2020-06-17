@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,171 +7,62 @@
     android:orientation="vertical"
     tools:context=".MapsActivity">
 
-    <RelativeLayout
+    <include layout="@layout/running_activity" />
+    <include layout="@layout/map_activity" />
+
+    <LinearLayout
+        android:id="@+id/viewbottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:background="#92FFFFFF"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/viewTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="#92FFFFFF"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="3">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="00:00"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"
-                    android:text="Thời lượng"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvKcal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="0.0"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"
-                    android:text="Kcal"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvBuoc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"
-                    android:text="bước"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-        <LinearLayout
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_below="@+id/cardView"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="#fff"
-                android:text="Đang tìm kiếm GPS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvPause"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <ImageButton
-            android:id="@+id/btnLocation"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="120dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/bg3"
+            android:id="@+id/btnDoi"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg7"
+            android:gravity="center"
             android:padding="10dp"
-            android:src="@drawable/ic_location_on_blue_24dp" />
+            android:src="@drawable/ic_pin_drop_black_50dp"
+            android:textColor="@color/white" />
+
         <ImageButton
-            android:layout_below="@+id/btnLocation"
-            android:id="@+id/btnChange"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/bg3"
-            android:padding="10dp"
-            android:src="@drawable/ic_change_blue_24dp" />
-
-        <LinearLayout
+            android:id="@+id/btnPause"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/bg6"
+            android:gravity="center"
             android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="10dp"
-            android:gravity="center">
+            android:src="@drawable/ic_pause"
+            android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/btnPause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/bg2"
-                android:gravity="center"
-                android:paddingStart="50dp"
-                android:paddingEnd="50dp"
-                android:text="Tạm dừng"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </RelativeLayout>
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/btnCamera"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg7"
+            android:gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/ic_photo_camera_black_50dp"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvPause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Tạm dừng"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</RelativeLayout>
